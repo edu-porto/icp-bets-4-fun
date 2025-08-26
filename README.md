@@ -2,16 +2,16 @@
 
 A complete decentralized betting platform built on the Internet Computer (ICP) using Motoko and React. The platform features Rock-Paper-Scissors and Coin Flip games with provably fair randomness, user authentication via Internet Identity, and a DAO treasury system.
 
-## 🏗️ Architecture
+## Architecture
 
 The platform consists of 4 canisters:
 
-1. **🔐 Auth Canister** (`src/auth/main.mo`) - User authentication and balance management
-2. **🎮 Game Canister** (`src/game/main.mo`) - Game logic with provably fair randomness
-3. **💰 Treasury Canister** (`src/treasury/main.mo`) - DAO treasury and transaction management
-4. **🌐 Frontend Canister** (`src/frontend/`) - React-based user interface
+1. **Auth Canister** (`src/auth/main.mo`) - User authentication and balance management
+2. **Game Canister** (`src/game/main.mo`) - Game logic with provably fair randomness
+3. **Treasury Canister** (`src/treasury/main.mo`) - DAO treasury and transaction management
+4. **Frontend Canister** (`src/frontend/`) - React-based user interface
 
-## ✨ Features
+## Features
 
 - **Internet Identity Authentication** - Secure, privacy-preserving login
 - **Provably Fair Games** - Rock-Paper-Scissors and Coin Flip with cryptographic randomness
@@ -20,14 +20,14 @@ The platform consists of 4 canisters:
 - **Responsive UI** - Modern, mobile-friendly interface
 - **Future-Ready** - Architecture supports governance token distribution
 
-## 🚀 Quick Start (Docker - Recommended)
+## Quick Start (Docker - Recommended)
 
 ### Prerequisites
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (with WSL2 support)
 - [Docker Compose](https://docs.docker.com/compose/install/) (usually included with Docker Desktop)
 
-### 🐳 **Option 1: Development Environment (Easiest)**
+### Option 1: Development Environment (Easiest)
 
 1. **Start the development container**
    ```bash
@@ -56,7 +56,7 @@ The platform consists of 4 canisters:
    npm run dev
    ```
 
-### 🐳 **Option 2: Full Auto-Deployment**
+### Option 2: Full Auto-Deployment
 
 ```bash
 # On Windows:
@@ -66,7 +66,7 @@ run-docker.bat
 ./run-docker.sh
 ```
 
-## 🔧 Manual Setup (Alternative)
+## Manual Setup (Alternative)
 
 ### Prerequisites
 
@@ -112,7 +112,7 @@ run-docker.bat
    dfx canister open frontend
    ```
 
-## 🎮 How to Play
+## How to Play
 
 ### Getting Started
 1. **Sign In** - Use Internet Identity to authenticate
@@ -137,7 +137,7 @@ run-docker.bat
 - **Maximum Bet**: 10,000 credits
 - **House Fee**: 2% on winning bets
 
-## 🔧 Development
+## Development
 
 ### Project Structure
 ```
@@ -215,7 +215,7 @@ npm run build    # Build for production
 npm run preview  # Preview production build
 ```
 
-## 🌐 Deployment
+## Deployment
 
 ### Local Development (Docker)
 ```bash
@@ -243,14 +243,14 @@ Set the following for mainnet deployment:
 export INTERNET_IDENTITY_CANISTER_ID="rdmx6-jaaaa-aaaaa-aaadq-cai"
 ```
 
-## 🔒 Security Features
+## Security Features
 
 - **Provably Fair Randomness** - Cryptographic hash-based game results
 - **Internet Identity** - Secure, privacy-preserving authentication
 - **Canister Isolation** - Separate concerns for security
 - **Transaction Recording** - All bets and results recorded on-chain
 
-## 🚧 Future Enhancements
+## Future Enhancements
 
 - **Governance Token** - DAO voting and platform governance
 - **Additional Games** - Dice, roulette, and more
@@ -258,7 +258,7 @@ export INTERNET_IDENTITY_CANISTER_ID="rdmx6-jaaaa-aaaaa-aaadq-cai"
 - **Mobile App** - Native mobile application
 - **API Integration** - Third-party game integration
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Docker Issues
 
@@ -332,7 +332,7 @@ dfx ping
 dfx identity whoami
 ```
 
-## 📚 Resources
+## Resources
 
 - [Internet Computer Documentation](https://internetcomputer.org/docs)
 - [Motoko Language Guide](https://internetcomputer.org/docs/current/developer-docs/build/languages/motoko/)
@@ -340,7 +340,7 @@ dfx identity whoami
 - [Internet Identity](https://internetcomputer.org/docs/current/developer-docs/integrations/internet-identity/)
 - [Docker Documentation](https://docs.docker.com/)
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -348,14 +348,14 @@ dfx identity whoami
 4. Add tests if applicable
 5. Submit a pull request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 This is a demonstration project for educational purposes. Please ensure compliance with local gambling regulations before deploying in production environments.
 
 ---
 
-**Built with ❤️ for the Internet Computer ecosystem** 
+**Built for the Internet Computer ecosystem** 
