@@ -1,0 +1,10 @@
+.git
+.gitignore
+README.md
+deploy.sh
+deploy.bat
+.dfx
+node_modules
+*.log
+.DS_Store
+Thumbs.db 
