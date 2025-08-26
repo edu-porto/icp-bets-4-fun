@@ -1,5 +1,5 @@
 import React from 'react'
-import { User, LogOut, Home, Gamepad2, PiggyBank } from 'lucide-react'
+import { User, LogOut, Home, Gamepad2, PiggyBank, TestTube } from 'lucide-react'
 
 interface UserProfile {
   id: any;
@@ -14,13 +14,15 @@ interface HeaderProps {
   onLogout?: () => void;
   currentView: 'dashboard' | 'games' | 'treasury';
   onViewChange: (view: 'dashboard' | 'games' | 'treasury') => void;
+  isTestMode?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({ 
   userProfile, 
   onLogout, 
   currentView, 
-  onViewChange 
+  onViewChange,
+  isTestMode = false
 }) => {
   const navigationItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home },
@@ -35,6 +37,13 @@ const Header: React.FC<HeaderProps> = ({
           <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
             ICP Bets
           </h1>
+          
+          {isTestMode && (
+            <div className="flex items-center gap-2 px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">
+              <TestTube size={16} />
+              Test Mode
+            </div>
+          )}
           
           {userProfile && (
             <nav className="flex gap-2">

@@ -36,6 +36,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [treasuryStats, setTreasuryStats] = useState<TreasuryStatsData | null>(null)
   const [currentView, setCurrentView] = useState<'dashboard' | 'games' | 'treasury'>('dashboard')
+  const [isTestMode, setIsTestMode] = useState(false)
 
   useEffect(() => {
     initializeAuth()
@@ -110,6 +111,21 @@ function App() {
     }
   }
 
+  const handleTestMode = () => {
+    // Create a mock profile for testing
+    const mockProfile: UserProfile = {
+      id: Principal.fromText('2vxsx-fae'), // Mock principal
+      username: 'TestPlayer',
+      balance: 1000,
+      createdAt: Date.now(),
+      lastActive: Date.now()
+    }
+    setUserProfile(mockProfile)
+    setIsAuthenticated(true)
+    setIsTestMode(true)
+    loadTreasuryStats()
+  }
+
   const updateUserBalance = (newBalance: number) => {
     if (userProfile) {
       setUserProfile({
@@ -159,7 +175,7 @@ function App() {
     return (
       <div className="container">
         <Header />
-        <Login onLogin={handleLogin} />
+        <Login onLogin={handleLogin} onTestMode={handleTestMode} />
       </div>
     )
   }
@@ -171,6 +187,7 @@ function App() {
         onLogout={handleLogout}
         currentView={currentView}
         onViewChange={setCurrentView}
+        isTestMode={isTestMode}
       />
       
       {currentView === 'dashboard' && (

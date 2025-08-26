@@ -1,11 +1,12 @@
 import React from 'react'
-import { Shield, Zap, Users, TrendingUp } from 'lucide-react'
+import { Shield, Zap, Users, TrendingUp, Play } from 'lucide-react'
 
 interface LoginProps {
   onLogin: () => void;
+  onTestMode: () => void;
 }
 
-const Login: React.FC<LoginProps> = ({ onLogin }) => {
+const Login: React.FC<LoginProps> = ({ onLogin, onTestMode }) => {
   const features = [
     {
       icon: Shield,
@@ -38,16 +39,40 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             The decentralized betting platform on Internet Computer
           </p>
           
-          <button
-            onClick={onLogin}
-            className="btn text-lg px-8 py-4"
-          >
-            Sign in with Internet Identity
-          </button>
+          <div className="space-y-3">
+            <button
+              onClick={onLogin}
+              className="btn text-lg px-8 py-4 w-full"
+            >
+              Sign in with Internet Identity
+            </button>
+            
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">or</span>
+              </div>
+            </div>
+            
+            <button
+              onClick={onTestMode}
+              className="btn-secondary text-lg px-8 py-4 w-full flex items-center justify-center gap-2"
+            >
+              <Play size={20} />
+              Test Mode - Play Games Now
+            </button>
+          </div>
           
-          <p className="text-sm text-gray-500 mt-4">
-            No registration required • Secure authentication • Privacy first
-          </p>
+          <div className="mt-4 space-y-2">
+            <p className="text-sm text-gray-500">
+              No registration required • Secure authentication • Privacy first
+            </p>
+            <p className="text-xs text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+              Test Mode: Bypass authentication to try games immediately
+            </p>
+          </div>
         </div>
       </div>
 
