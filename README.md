@@ -6,10 +6,10 @@ A complete decentralized betting platform built on the Internet Computer (ICP) u
 
 The platform consists of 4 canisters:
 
-1. **Auth Canister** (`src/auth/main.mo`) - User authentication and balance management
-2. **Game Canister** (`src/game/main.mo`) - Game logic with provably fair randomness
-3. **Treasury Canister** (`src/treasury/main.mo`) - DAO treasury and transaction management
-4. **Frontend Canister** (`src/frontend/`) - React-based user interface
+1. **🔐 Auth Canister** (`src/auth/main.mo`) - User authentication and balance management
+2. **🎮 Game Canister** (`src/game/main.mo`) - Game logic with provably fair randomness
+3. **💰 Treasury Canister** (`src/treasury/main.mo`) - DAO treasury and transaction management
+4. **🌐 Frontend Canister** (`src/frontend/`) - React-based user interface
 
 ## ✨ Features
 
@@ -20,7 +20,53 @@ The platform consists of 4 canisters:
 - **Responsive UI** - Modern, mobile-friendly interface
 - **Future-Ready** - Architecture supports governance token distribution
 
-## 🚀 Quick Start
+## 🚀 Quick Start (Docker - Recommended)
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (with WSL2 support)
+- [Docker Compose](https://docs.docker.com/compose/install/) (usually included with Docker Desktop)
+
+### 🐳 **Option 1: Development Environment (Easiest)**
+
+1. **Start the development container**
+   ```bash
+   # On Windows:
+   run-dev.bat
+   
+   # On Mac/Linux:
+   docker-compose -f docker-compose.dev.yml up --build
+   ```
+
+2. **Once inside the container, run these commands:**
+   ```bash
+   # Start local Internet Computer
+   dfx start --background
+   
+   # Deploy all canisters
+   dfx deploy
+   
+   # Open the frontend
+   dfx canister open frontend
+   ```
+
+3. **For frontend development:**
+   ```bash
+   cd src/frontend
+   npm run dev
+   ```
+
+### 🐳 **Option 2: Full Auto-Deployment**
+
+```bash
+# On Windows:
+run-docker.bat
+
+# On Mac/Linux:
+./run-docker.sh
+```
+
+## 🔧 Manual Setup (Alternative)
 
 ### Prerequisites
 
@@ -97,21 +143,43 @@ The platform consists of 4 canisters:
 ```
 icp-bets-4-fun/
 ├── dfx.json                 # DFX configuration
-├── src/
-│   ├── auth/               # Authentication canister
-│   │   └── main.mo
-│   ├── game/               # Game logic canister
-│   │   └── main.mo
-│   ├── treasury/           # Treasury/DAO canister
-│   │   └── main.mo
-│   └── frontend/           # React frontend
-│       ├── src/
-│       │   ├── components/ # React components
-│       │   ├── App.tsx     # Main app component
-│       │   └── main.tsx    # Entry point
-│       ├── package.json    # Frontend dependencies
-│       └── vite.config.ts  # Build configuration
-└── README.md
+├── Dockerfile.dev           # Development Docker image
+├── docker-compose.dev.yml   # Development Docker Compose
+├── run-dev.bat             # Windows dev runner
+├── run-docker.bat          # Windows auto-deploy
+├── run-docker.sh           # Linux/Mac auto-deploy
+├── dashboard.html           # Canister status dashboard
+├── README.md               # This file
+└── src/
+    ├── auth/               # Authentication canister
+    │   └── main.mo
+    ├── game/               # Game logic canister
+    │   └── main.mo
+    ├── treasury/           # Treasury/DAO canister
+    │   └── main.mo
+    └── frontend/           # React frontend
+        ├── src/
+        │   ├── components/ # React components
+        │   ├── App.tsx     # Main app component
+        │   └── main.tsx    # Entry point
+        ├── package.json    # Frontend dependencies
+        └── vite.config.ts  # Build configuration
+```
+
+### Docker Development Commands
+
+```bash
+# Start development environment
+docker-compose -f docker-compose.dev.yml up --build
+
+# Access the container
+docker exec -it icp-bets-dev bash
+
+# View logs
+docker-compose -f docker-compose.dev.yml logs -f
+
+# Stop the environment
+docker-compose -f docker-compose.dev.yml down
 ```
 
 ### Canister Development
@@ -149,7 +217,16 @@ npm run preview  # Preview production build
 
 ## 🌐 Deployment
 
-### Local Development
+### Local Development (Docker)
+```bash
+# Development environment
+docker-compose -f docker-compose.dev.yml up --build
+
+# Auto-deployment
+docker-compose up --build
+```
+
+### Local Development (Manual)
 ```bash
 dfx start --background
 dfx deploy
@@ -182,6 +259,32 @@ export INTERNET_IDENTITY_CANISTER_ID="rdmx6-jaaaa-aaaaa-aaadq-cai"
 - **API Integration** - Third-party game integration
 
 ## 🐛 Troubleshooting
+
+### Docker Issues
+
+1. **Container won't start**
+   ```bash
+   # Check Docker logs
+   docker-compose -f docker-compose.dev.yml logs
+   
+   # Rebuild the container
+   docker-compose -f docker-compose.dev.yml up --build --force-recreate
+   ```
+
+2. **Port conflicts**
+   ```bash
+   # Check what's using the ports
+   netstat -ano | findstr :8000
+   netstat -ano | findstr :3000
+   ```
+
+3. **DFX issues inside container**
+   ```bash
+   # Access container and check DFX
+   docker exec -it icp-bets-dev bash
+   dfx --version
+   dfx ping
+   ```
 
 ### Common Issues
 
@@ -235,6 +338,7 @@ dfx identity whoami
 - [Motoko Language Guide](https://internetcomputer.org/docs/current/developer-docs/build/languages/motoko/)
 - [DFX Reference](https://internetcomputer.org/docs/current/references/cli-reference/)
 - [Internet Identity](https://internetcomputer.org/docs/current/developer-docs/integrations/internet-identity/)
+- [Docker Documentation](https://docs.docker.com/)
 
 ## 🤝 Contributing
 

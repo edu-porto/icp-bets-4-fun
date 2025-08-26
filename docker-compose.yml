@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   icp-bets:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.simple
     container_name: icp-bets-platform
     ports:
       - "8000:8000"   # DFX local network
@@ -16,6 +18,12 @@ services:
     restart: unless-stopped
     stdin_open: true
     tty: true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   # Optional: Add a simple web interface to view canister status
   icp-dashboard:

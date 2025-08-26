@@ -1,0 +1,72 @@
+FROM ubuntu:22.04
+
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+ENV NODE_VERSION=18
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    git \
+    build-essential \
+    ca-certificates \
+    vim \
+    nano \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
+    && apt-get install -y nodejs
+
+# Install DFX directly from the latest release
+RUN mkdir -p /root/.local/share/dfx/bin \
+    && curl -L https://github.com/dfinity/dfx/releases/latest/download/dfx-x86_64-linux.tar.gz -o dfx.tar.gz \
+    && tar -xzf dfx.tar.gz \
+    && mv dfx /root/.local/share/dfx/bin/ \
+    && rm dfx.tar.gz \
+    && echo 'export PATH="/root/.local/share/dfx/bin:$PATH"' >> ~/.bashrc \
+    && echo 'export PATH="/root/.local/share/dfx/bin:$PATH"' >> ~/.profile
+
+# Set working directory
+WORKDIR /app
+
+# Copy project files
+COPY . .
+
+# Install frontend dependencies
+RUN cd src/frontend && npm install
+
+# Expose ports
+EXPOSE 8000 3000 4943
+
+# Create a helpful startup script
+RUN echo '#!/bin/bash\n\
+export PATH="/root/.local/share/dfx/bin:$PATH"\n\
+echo "🐳 ICP Bets Development Environment Ready!"\n\
+echo ""\n\
+echo "📚 Available commands:"\n\
+echo "  dfx start --background    # Start local Internet Computer"\n\
+echo "  dfx deploy               # Deploy all canisters"\n\
+echo "  dfx deploy frontend      # Deploy frontend canister"\n\
+echo "  dfx canister open frontend  # Open frontend in browser"\n\
+echo "  dfx stop                 # Stop local Internet Computer"\n\
+echo ""\n\
+echo "🔧 Development commands:"\n\
+echo "  cd src/frontend && npm run dev  # Start frontend dev server"\n\
+echo "  cd src/frontend && npm run build  # Build frontend"\n\
+echo ""\n\
+echo "🌐 Ports:"\n\
+echo "  - 8000: DFX local network"\n\
+echo "  - 3000: Frontend dev server"\n\
+echo "  - 4943: Internet Identity"\n\
+echo ""\n\
+echo "🚀 To get started:"\n\
+echo "  1. dfx start --background"\n\
+echo "  2. dfx deploy"\n\
+echo "  3. dfx canister open frontend"\n\
+echo ""\n\
+bash' > /start.sh && chmod +x /start.sh
+
+# Set the startup script as entrypoint
+ENTRYPOINT ["/start.sh"] 

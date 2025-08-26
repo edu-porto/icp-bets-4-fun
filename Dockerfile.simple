@@ -2,7 +2,6 @@ FROM ubuntu:22.04
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
-ENV DFX_VERSION=0.15.0
 ENV NODE_VERSION=18
 
 # Install system dependencies
@@ -12,27 +11,16 @@ RUN apt-get update && apt-get install -y \
     git \
     build-essential \
     ca-certificates \
-    gnupg \
-    lsb-release \
-    software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
     && apt-get install -y nodejs
 
-# Install DFX manually (non-interactive)
-RUN mkdir -p /root/.local/share/dfx/bin \
-    && curl -L https://github.com/dfinity/dfx/releases/download/${DFX_VERSION}/dfx-${DFX_VERSION}-x86_64-linux.tar.gz -o dfx.tar.gz \
-    && tar -xzf dfx.tar.gz \
-    && mv dfx /root/.local/share/dfx/bin/ \
-    && rm dfx.tar.gz \
-    && echo 'export PATH="/root/.local/share/dfx/bin:$PATH"' >> ~/.bashrc \
-    && echo 'export PATH="/root/.local/share/dfx/bin:$PATH"' >> ~/.profile
-
-# Install Rust (required for some DFX operations)
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
-    && echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
+# Install DFX using the exact command provided by user
+RUN sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)" \
+    && echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc \
+    && echo 'export PATH="$HOME/bin:$PATH"' >> ~/.profile
 
 # Set working directory
 WORKDIR /app
@@ -51,10 +39,9 @@ EXPOSE 8000 3000 4943
 
 # Create startup script
 RUN echo '#!/bin/bash\n\
-export PATH="/root/.local/share/dfx/bin:$PATH"\n\
-export PATH="$HOME/.cargo/bin:$PATH"\n\
+export PATH="$HOME/bin:$PATH"\n\
 echo "🚀 Starting ICP Bets Platform..."\n\
-echo "📦 Installing DFX dependencies..."\n\
+echo "📦 Starting DFX..."\n\
 dfx start --background --clean\n\
 echo "⏳ Waiting for Internet Computer to be ready..."\n\
 sleep 15\n\
