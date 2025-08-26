@@ -2,6 +2,9 @@
 
 A complete decentralized betting platform built on the Internet Computer (ICP) using Motoko and React. The platform features Rock-Paper-Scissors and Coin Flip games with provably fair randomness, user authentication via Internet Identity, and a DAO treasury system.
 
+## Demo
+[![Watch the video](https://img.youtube.com/vi/G8dZi-Nz-7o/maxresdefault.jpg)](https://youtu.be/G8dZi-Nz-7o)
+
 ## Architecture
 
 The platform consists of 4 canisters:
