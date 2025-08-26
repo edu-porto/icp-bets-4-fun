@@ -1,0 +1,33 @@
+{
+  "canisters": {
+    "auth": {
+      "type": "motoko",
+      "main": "src/auth/main.mo"
+    },
+    "game": {
+      "type": "motoko",
+      "main": "src/game/main.mo"
+    },
+    "treasury": {
+      "type": "motoko",
+      "main": "src/treasury/main.mo"
+    },
+    "frontend": {
+      "type": "assets",
+      "source": ["src/frontend/dist"]
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": "",
+      "args": ""
+    }
+  },
+  "dfx": "0.15.0",
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  }
+} 
